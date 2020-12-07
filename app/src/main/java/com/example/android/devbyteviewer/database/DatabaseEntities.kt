@@ -22,7 +22,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.android.devbyteviewer.domain.Video
 
-@Entity
+@Entity(
+        tableName = "videos",
+)
 data class DatabaseVideo(
         @PrimaryKey @ColumnInfo(name = "url") val url: String,
         @ColumnInfo(name = "title") val title: String,
