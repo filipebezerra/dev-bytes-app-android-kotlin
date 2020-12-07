@@ -17,3 +17,29 @@
 
 package com.example.android.devbyteviewer.database
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.android.devbyteviewer.domain.Video
+
+@Entity(
+        tableName = "videos",
+)
+data class DatabaseVideo(
+        @PrimaryKey @ColumnInfo(name = "url") val url: String,
+        @ColumnInfo(name = "title") val title: String,
+        @ColumnInfo(name = "description") val description: String,
+        @ColumnInfo(name = "updated") val updated: String,
+        @ColumnInfo(name = "thumbnail") val thumbnail: String,
+)
+
+fun List<DatabaseVideo>.asDomainModel(): List<Video> =
+        map {
+            Video(
+                    url = it.url,
+                    title = it.url,
+                    description = it.description,
+                    updated = it.updated,
+                    thumbnail = it.thumbnail,
+            )
+        }
