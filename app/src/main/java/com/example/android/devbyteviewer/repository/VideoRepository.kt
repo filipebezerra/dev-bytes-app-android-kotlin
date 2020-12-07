@@ -40,10 +40,15 @@ class VideoRepository(private val videoDao: VideoDao) {
     suspend fun refreshVideos() {
         withContext(Dispatchers.IO) {
             try {
+                Timber.i("Refreshing videos")
                 val playlist = Network.devbytes.getPlaylist()
+                Timber.i("Videos were fetched from internet successfully")
                 videoDao.insertAll(*playlist.asDatabaseModel())
+                Timber.i("Videos were saved to local data store successfully")
             } catch (error: Exception) {
                 Timber.e(error, "Failed to refresh videos")
+                // TODO Log to Crashlytics/Bugsnag
+                // TODO Show visual feedback
             }
         }
     }
